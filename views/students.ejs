@@ -1,0 +1,33 @@
+<style>
+    table, th, td {
+    border: 2px solid black; /*make the border of the table 2px in thickness, solid and black*/
+    border-collapse: collapse; /*adjacent table cell borders are merged into a single border*/
+    padding: 10px; /*give the content of the table a bit of breathing room, looks better in my opinion */
+  }
+</style>
+
+<h1>Students</h1>
+
+<a href="/students/add">Add Student</a>
+<br>
+<a href="/">Home</a>
+<br><br>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+        <!-- <% empList.forEach((emp) =>{ %>  TAKEN FROM LAB, CHANGE FOR STUDENTS
+        <tr>
+            <td><%= emp.id %></td>
+            <td><%= emp.name %></td>
+            <td><%= emp.salary %></td>
+        </tr>
+        <% }) %>  -->
+</table>
