@@ -27,6 +27,8 @@ mysql
     console.log("pool error:" + e);
   });
 
+//STUDENTS
+
 //get all the students in alphabetical order (by ID)
 var getStudents = function () {
   return new Promise((resolve, reject) => {
@@ -61,19 +63,23 @@ var getStudentById = function (sid) {
 
 //Update a student
 var updateStudent = function (sid, name, age) {
-    return new Promise((resolve, reject) => {
-      pool
-        .query('UPDATE student SET name = ?, age = ? WHERE sid = ?', [name, age, sid])
-        .then((students) => {
-          console.log(students);
-          resolve(students);
-        })
-        .catch((error) => {
-          console.log(error);
-          reject(error);
-        });
-    });
-  };
+  return new Promise((resolve, reject) => {
+    pool
+      .query("UPDATE student SET name = ?, age = ? WHERE sid = ?", [
+        name,
+        age,
+        sid,
+      ])
+      .then((students) => {
+        console.log(students);
+        resolve(students);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
+};
 
 // Add a new student
 var addStudent = function (sid, name, age) {
@@ -95,4 +101,28 @@ var addStudent = function (sid, name, age) {
   });
 };
 
-module.exports = { getStudents, getStudentById, addStudent , updateStudent};
+//GRADES
+var getGrades = function () {
+  return new Promise((resolve, reject) => {
+    pool
+      .query(
+        "Select s.name AS student_name, m.name AS module_name, g.grade FROM student s LEFT JOIN grade g ON s.sid = g.sid LEFT JOIN module m on g.mid = m.mid ORDER BY s.name ASC, g.grade ASC"
+      )
+      .then((grades) => {
+        console.log(grades);
+        resolve(grades);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
+};
+
+module.exports = {
+  getStudents,
+  getStudentById,
+  addStudent,
+  updateStudent,
+  getGrades,
+};

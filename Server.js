@@ -149,7 +149,14 @@ app.post(
 
 //GRADES
 app.get("/grades", (req, res) => {
-  res.render("grades");
+    mysqlDAO.getGrades()
+    .then((grades) => {
+      res.render("grades", { grades });
+    })
+    .catch((error) => {
+      console.error("Error fetching grades:", error.message);
+      res.status(500).send("Internal Server Error");
+    });
 });
 
 //LECTURERS

@@ -1,22 +1,37 @@
 <style>
-    table, th, td {
+  table,
+  th,
+  td {
     border: 2px solid black; /*make the border of the table 2px in thickness, solid and black*/
     border-collapse: collapse; /*adjacent table cell borders are merged into a single border*/
-    padding: 10px; /*give the content of the table a bit of breathing room, looks better in my opinion */
+    padding: 10px; /*give the content of the table padding, looks better in my opinion */
   }
 </style>
 
 <h1>Grades</h1>
 
 <a href="/">Home</a>
-<br><br>
+<br /><br />
 
 <table>
-    <thead>
-        <tr>
-            <th>Student</th>
-            <th>Module</th>
-            <th>Grade</th>
-        </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Module</th>
+      <th>Grade</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% grades.forEach((grade) => { %>
+    <tr>
+      <!-- Print student name -->
+      <td><%= grade.student_name %></td>
+      <!-- Print module name or leave blank -->
+      <td><%= grade.module_name || '' %></td>
+      <!-- Print grade or blank if not available -->
+      <td><%= grade.grade || '' %></td>
+    </tr>
+    <% }); %>
+  </tbody>
 </table>
