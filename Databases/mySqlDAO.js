@@ -119,10 +119,30 @@ var getGrades = function () {
   });
 };
 
+//LECTURERS
+//check if a lecurer teaches a module
+var lecturerTeachesModules = function(lid) {
+  return new Promise((resolve, reject) => {
+    pool 
+    .query("SELECT * from module WHERE lecturer = ?", [lid])
+    .then((result) => {
+      console.log(result);
+      resolve(result);
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    });
+  })
+}
+
+//delete a lecturer 
+
 module.exports = {
   getStudents,
   getStudentById,
   addStudent,
   updateStudent,
   getGrades,
+  lecturerTeachesModules
 };

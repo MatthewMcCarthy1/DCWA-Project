@@ -25,6 +25,22 @@ var getAllLecturers = function () {
   });
 };
 
+//delete a lecturer
+var deleteLecturer = function(lid) {
+  return new Promise((resolve, reject) => {
+    coll.deleteOne({_id: lid})
+    .then((result) => {
+      resolve(result);
+    })
+    .catch((error) => {
+      reject(error);
+    });
+  })
+}
+
+//EXTRA FUNCTIONALITY
+
 module.exports = {
-  getAllLecturers
+  getAllLecturers,
+  deleteLecturer
 }

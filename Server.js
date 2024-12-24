@@ -162,11 +162,12 @@ app.get("/grades", (req, res) => {
     });
 });
 
-//LECTURERS - mongoDB
+//LECTURERS 
+//GET ALL lecturers and sort them by lecturer id in alphabetical order
 app.get("/lecturers", (req, res) => {
   mongoDBDAO.getAllLecturers()
   .then((lecturers) => {
-    // Sort lecturers by lecturer ID in alphabetical order
+    //Sort lecturers by lecturer ID in alphabetical order
     lecturers.sort((a, b) => a._id.localeCompare(b._id));
     res.render("lecturers", { lecturers });
   })
@@ -175,6 +176,31 @@ app.get("/lecturers", (req, res) => {
     res.status(500).send("Internal Server Error");
   });
 });
+
+//DELETE A lecturer based off their id
+app.get("/lecturers/delete/:lid", (req, res) => {
+  const lid = req.params.lid;
+
+  mysqlDAO.lecturerTeachesModules(lid)
+  .then((teachesModules) => {
+    if(teachesModules) {
+      //if the lecturer teaches modules, send an error
+      return res.status(400).send(`<p><a href="/">Home</a></p>
+        <h1>Error Message</h1>
+        <h2>Cannot delete lecturer ${lid}. He/She has associated modules</h2>`);
+    }
+    else {
+      //if not then delete the lecturer
+      return mongoDBDAO.deleteLecturer(lid).then(() => {
+        res.redirect("/lecturers")
+      });
+    }
+  })
+  .catch((error) => {
+    console.error("Error deleting lecturer:", error.message);
+    res.status(500).send("Internal Server Error");
+  });
+})
 
 //start the server on port 3004
 app.listen(3004, () => {
