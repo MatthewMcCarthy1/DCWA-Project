@@ -1,0 +1,44 @@
+<a href="/">Home</a> <br /><br />
+
+<h1>Add Student</h1>
+
+<!-- Display Validation Errors -->
+<% if (errors.length > 0) { %>
+<ul>
+  <% errors.forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+<!-- Add Student Form -->
+<form action="/students/add" method="POST">
+  <!-- Student ID input -->
+  <label for="sid">Student ID:</label>
+  <input
+    type="text"
+    id="sid"
+    name="sid"
+    value="<%= student.sid || '' %>"
+    required
+  /><br />
+  <!-- Name input-->
+  <label for="name">Name:</label>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    value="<%= student.name || '' %>"
+    required
+  /><br />
+  <!-- Age input-->
+  <label for="age">Age:</label>
+  <input
+    type="number"
+    id="age"
+    name="age"
+    value="<%= student.age || '' %>"
+    required
+  /><br />
+  <!-- Add Button -->
+  <button type="submit">Add</button>
+</form>

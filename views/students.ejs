@@ -1,33 +1,43 @@
 <style>
-    table, th, td {
+  table,
+  th,
+  td {
     border: 2px solid black; /*make the border of the table 2px in thickness, solid and black*/
     border-collapse: collapse; /*adjacent table cell borders are merged into a single border*/
-    padding: 10px; /*give the content of the table a bit of breathing room, looks better in my opinion */
+    padding: 10px; /*give the content of the table padding, looks better in my opinion */
   }
 </style>
 
 <h1>Students</h1>
 
+<!--Navigation links-->
 <a href="/students/add">Add Student</a>
-<br>
+<br />
 <a href="/">Home</a>
-<br><br>
+<br /><br />
 
+<!--Table for student info-->
 <table>
-    <thead>
-        <tr>
-            <th>Student ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Action</th>
-        </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th>Student ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Action</th>
+    </tr>
+  </thead>
 
-        <!-- <% empList.forEach((emp) =>{ %>  TAKEN FROM LAB, CHANGE FOR STUDENTS
-        <tr>
-            <td><%= emp.id %></td>
-            <td><%= emp.name %></td>
-            <td><%= emp.salary %></td>
-        </tr>
-        <% }) %>  -->
+  <tbody>
+    <!--Loop through each student in the array of students-->
+    <% students.forEach((student) =>{ %>
+    <tr>
+      <td><%= student.sid %></td>
+      <td><%= student.name %></td>
+      <td><%= student.age %></td>
+      <td>
+        <a href="/students/edit/<%= student.sid %>">Update</a>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
 </table>
