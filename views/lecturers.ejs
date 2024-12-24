@@ -20,4 +20,17 @@
             <th>Action</th>
         </tr>
     </thead>
+    <tbody>
+        <!--Loop through each lecturer in the array of lecturers-->
+        <% lecturers.forEach((lecturer) => { %>
+            <tr>
+                <td><%= lecturer._id %></td>
+                <td><%= lecturer.name %></td>
+                <td><%= lecturer.did %></td>
+                <td>
+                    <a href="/lecturers/delete/<%= lecturer._id %>">Delete</a>
+                </td>
+            </tr>
+        <% }); %>
+    </tbody>
 </table>

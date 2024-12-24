@@ -16,6 +16,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //import express-validator
 const { check, validationResult } = require("express-validator");
 
+//import MongoDB
+var mongoDBDAO = require("./Databases/mongoDBDAO");
+
 //HOME
 app.get("/", (req, res) => {
   res.render("home");
@@ -159,9 +162,18 @@ app.get("/grades", (req, res) => {
     });
 });
 
-//LECTURERS
+//LECTURERS - mongoDB
 app.get("/lecturers", (req, res) => {
-  res.render("lecturers");
+  mongoDBDAO.getAllLecturers()
+  .then((lecturers) => {
+    // Sort lecturers by lecturer ID in alphabetical order
+    lecturers.sort((a, b) => a._id.localeCompare(b._id));
+    res.render("lecturers", { lecturers });
+  })
+  .catch((error) => {
+    console.error("Error fetching lecturers:", error.message);
+    res.status(500).send("Internal Server Error");
+  });
 });
 
 //start the server on port 3004
