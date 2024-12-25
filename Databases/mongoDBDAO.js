@@ -39,8 +39,35 @@ var deleteLecturer = function(lid) {
 }
 
 //EXTRA FUNCTIONALITY
+//update a lecturer
+var updateLecturer = function (lid, name, did) {
+  return new Promise((resolve, reject) => {
+    coll.updateOne({ _id: lid }, { $set: { name: name, did: did } })
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+//get a lecturer by ID
+var getLecturerById = function (lid) {
+  return new Promise((resolve, reject) => {
+    coll.findOne({ _id: lid })
+      .then((lecturer) => {
+        resolve(lecturer);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
 
 module.exports = {
   getAllLecturers,
-  deleteLecturer
+  deleteLecturer,
+  updateLecturer,
+  getLecturerById
 }

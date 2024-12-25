@@ -7,7 +7,6 @@
 </style>
 
 <h1>Lecturers</h1>
-
 <a href="/">Home</a>
 <br><br>
 
@@ -18,6 +17,7 @@
             <th>Name</th>
             <th>Department ID</th>
             <th>Action</th>
+            <th>EXTRA</th>
         </tr>
     </thead>
     <tbody>
@@ -29,6 +29,9 @@
                 <td><%= lecturer.did %></td>
                 <td>
                     <a href="/lecturers/delete/<%= lecturer._id %>">Delete</a>
+                </td>
+                <td>
+                    <a href="/lecturers/edit/<%= lecturer._id %>">Edit</a>
                 </td>
             </tr>
         <% }); %>

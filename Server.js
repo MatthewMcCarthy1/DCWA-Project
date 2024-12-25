@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 
 //GET BY ID for editing a student
 app.get("/students/edit/:sid", (req, res) => {
-  const { sid } = req.params;
+  const sid  = req.params.sid;
   mysqlDAO
     .getStudentById(sid)
     .then((students) => {
@@ -201,6 +201,63 @@ app.get("/lecturers/delete/:lid", (req, res) => {
     res.status(500).send("Internal Server Error");
   });
 })
+
+//EXTRA FUNCTIONALITY
+//GET BY ID for editing a lecturer
+app.get("/lecturers/edit/:lid", (req, res) => {
+  const lid  = req.params.lid;
+  mongoDBDAO
+    .getLecturerById(lid)
+    .then((lecturer) => {
+      if (lecturer) {
+        res.render("editLecturer", { lecturer: lecturer, errors: [] });
+      } else {
+        res.status(404).send("Lecturer not found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching lecturer:", error);
+      res.status(500).send("Internal Server Error");
+    });
+});
+
+//POST BY ID to update a student
+app.post(
+  "/lecturers/edit/:lid",
+  [
+    //validate user input
+    check("name")
+      .isLength({ min: 2 })
+      .withMessage("Name should be a minimum of 2 characters"),
+    check("did")
+      //this is to make sure only characters are entered and exactly 3 characters are entered. 
+      .matches(/^[A-Z]{3}$/) 
+      .withMessage("Department ID must be exactly 3 characters long and in uppercase (example: ENG for english)"),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    const { lid } = req.params;
+    const { name, did } = req.body;
+
+    //show the errors
+    if (!errors.isEmpty()) {
+      return res.render("editLecturer", {
+        lecturer: { _id: lid, name, did },
+        errors: errors.array(),
+      });
+    }
+
+     //update the lecturer in the database
+     mongoDBDAO.updateLecturer(lid, name, did)
+     .then(() => {
+       res.redirect("/lecturers");
+     })
+     .catch((error) => {
+       console.error("Error updating lecturer:", error);
+       res.status(500).send("Internal Server Error");
+     });
+  }
+);
 
 //start the server on port 3004
 app.listen(3004, () => {

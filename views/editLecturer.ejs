@@ -1,0 +1,45 @@
+<a href="/">Home</a> <br /><br />
+
+<h1>Update Lecturer</h1>
+
+<!-- Display Validation Errors -->
+<% if (errors.length > 0) { %>
+<ul>
+  <% errors.forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+<!-- Add Student Form -->
+<form action="/lecturers/edit/<%= lecturer._id %>" method="POST">
+  <!-- Lecturer ID (not to be edited) -->
+  <label for="lid">Lecturer ID:</label>
+  <input
+    type="text"
+    id="lid"
+    name="sid"
+    value="<%= lecturer._id %>"
+    readonly
+  /><br />
+  <!-- Name input-->
+  <label for="name">Name:</label>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    value="<%= lecturer.name %>"
+    required
+  /><br />
+  <!-- Department ID input-->
+  <label for="did">Department ID:</label>
+  <input
+    type="text"
+    id="did"
+    name="did"
+    value="<%= lecturer.did %>"
+    maxlength="3"
+    required
+  /><br />
+  <!-- Add Button -->
+  <button type="submit">Add</button>
+</form>
