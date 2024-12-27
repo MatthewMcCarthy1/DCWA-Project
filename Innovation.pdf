@@ -1,3 +1,0 @@
-Used express-validator for the input checks.
-
-Added extra functionality to edit a lecturer, same idea as editing a student but modified slightly to match the lecturer details.
