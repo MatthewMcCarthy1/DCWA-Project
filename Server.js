@@ -138,10 +138,8 @@ app.post(
         //add the student to the database
         return mysqlDAO.addStudent(sid, name, age);
       })
-      .then((result) => {
-        if (result) {
+      .then(() => {
           res.redirect("/students");
-        }
       })
       .catch((error) => {
         console.error("Error adding student:", error.message);
@@ -230,8 +228,7 @@ app.post(
       .isLength({ min: 2 })
       .withMessage("Name should be a minimum of 2 characters"),
     check("did")
-      //this is to make sure only characters are entered and exactly 3 characters are entered. 
-      .matches(/^[A-Z]{3}$/) 
+      .isLength({ min: 3 })
       .withMessage("Department ID must be exactly 3 characters long and in uppercase (example: ENG for english)"),
   ],
   (req, res) => {

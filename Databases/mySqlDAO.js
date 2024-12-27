@@ -17,7 +17,7 @@ mysql
     connectionLimit: 3,
     host: "localhost",
     user: "root",
-    password: "your_password",
+    password: "root",
     database: "proj2024Mysql",
   })
   .then((p) => {
